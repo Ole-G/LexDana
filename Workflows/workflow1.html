@@ -39,13 +39,13 @@
 const diagram = `
 flowchart TD
     %% NODES
-    A["New Tier 1 contact / LEXDANA_TIER1_POWER"]
+    A([New Tier 1 contact / LEXDANA_TIER1_POWER])
     B["Email 1.1 - Mon 25 Nov 09:00"]
-    C["Wait 96 hours"]
+    C[[Wait 96 hours]]
     D{"Email 1.1 opened?"}
     E["Email 1.2 - Fri 29 Nov 14:00"]
-    F(("Engaged user"))
-    G(("End workflow"))
+    F((Engaged user))
+    G((End workflow))
 
     %% FLOWS
     A --> B
@@ -54,6 +54,22 @@ flowchart TD
     D -->|"No, not opened"| E
     D -->|"Yes, opened"| F
     E --> G
+
+    %% COLORS & STYLING
+    classDef trigger fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px,color:#1E3A8A
+    classDef email   fill:#DBEAFE,stroke:#3B82F6,stroke-width:2px,color:#1E40AF
+    classDef delay   fill:#FEF3C7,stroke:#FCD34D,stroke-width:2px,color:#B45309
+    classDef decision fill:#FFE4C4,stroke:#FB923C,stroke-width:2px,color:#7C2D12
+    classDef success fill:#DCFCE7,stroke:#22C55E,stroke-width:2px,color:#065F46
+    classDef endNode fill:#FEE2E2,stroke:#EF4444,stroke-width:2px,color:#7F1D1D
+
+    %% CLASS ASSIGNMENTS
+    class A trigger
+    class B,E email
+    class C delay
+    class D decision
+    class F success
+    class G endNode
 `;
 
 
