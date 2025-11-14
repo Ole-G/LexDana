@@ -30,13 +30,14 @@
             Workflow 1: Tier 1 Power Users (2-Email Sequence)
         </h2>
 
-        <!-- Container for rendered Mermaid SVG -->
+        <!-- Container where the SVG will be injected -->
         <div id="lexdana-workflow" class="mermaid-box"></div>
     </div>
 
     <!-- Load Mermaid.js -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
+        // Define the diagram as a JS string
         const diagram = `
           flowchart TD
               A["Trigger: Contact added to list LEXDANA_TIER1_POWER"]
@@ -67,14 +68,23 @@
               class F,G end
         `;
 
+        // Initialize Mermaid
         mermaid.initialize({
             startOnLoad: false,
             securityLevel: 'loose',
             flowchart: { htmlLabels: true }
         });
 
-        mermaid.render('lexdanaGraph', diagram, (svgCode) => {
-            document.getElementById('lexdana-workflow').innerHTML = svgCode;
+        // Wait for DOM to be ready, then render
+        document.addEventListener('DOMContentLoaded', () => {
+            mermaid
+                .render('lexdanaGraph', diagram)   // returns a Promise in v10
+                .then(({ svg }) => {
+                    document.getElementById('lexdana-workflow').innerHTML = svg;
+                })
+                .catch((err) => {
+                    console.error('Mermaid render error:', err);
+                });
         });
     </script>
 
