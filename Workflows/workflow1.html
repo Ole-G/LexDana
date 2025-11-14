@@ -38,16 +38,14 @@
     <script>
 const diagram = `
 flowchart TD
-    %% NODES
-    A([🚀 New Tier 1 contact – LEXDANA_TIER1_POWER])
-    B[✉️ Email 1.1 (Mon Nov 25, 9:00 AM ET)]
-    C[[⏱️ Wait 96 hours]]
-    D{📬 Email 1.1 opened?}
-    E[✉️ Email 1.2 (Fri Nov 29, 2:00 PM ET)]
-    F((✅ Engaged user))
-    G((🏁 End workflow))
+    A([New Tier 1 contact – LEXDANA_TIER1_POWER])
+    B[Email 1.1 (Mon Nov 25, 9:00 AM ET)]
+    C[[Wait 96 hours]]
+    D{Email 1.1 opened?}
+    E[Email 1.2 (Fri Nov 29, 2:00 PM ET)]
+    F((Engaged user))
+    G((End workflow))
 
-    %% FLOWS
     A --> B
     B --> C
     C --> D
@@ -55,7 +53,7 @@ flowchart TD
     D -->|"Yes, opened"| F
     E --> G
 
-    %% STYLES
+    %% Shapes & styles via classes
     classDef trigger   fill:#eef2ff,stroke:#4f46e5,stroke-width:2px,color:#1e3a8a
     classDef email     fill:#e0f2fe,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e
     classDef delay     fill:#fef3c7,stroke:#facc15,stroke-width:2px,color:#78350f
