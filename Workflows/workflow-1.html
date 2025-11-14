@@ -36,14 +36,14 @@
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
-    const diagram = `
+const diagram = `
 flowchart TD
     %% NODES
-    A([🚀 New Tier 1 contact<br/>LEXDANA_TIER1_POWER])
-    B[✉️ Email 1.1<br/>(Mon Nov 25, 9:00 AM ET)]
+    A([🚀 New Tier 1 contact – LEXDANA_TIER1_POWER])
+    B[✉️ Email 1.1 (Mon Nov 25, 9:00 AM ET)]
     C[[⏱️ Wait 96 hours]]
-    D{📬 Email 1.1<br/>opened?}
-    E[✉️ Email 1.2<br/>(Fri Nov 29, 2:00 PM ET)]
+    D{📬 Email 1.1 opened?}
+    E[✉️ Email 1.2 (Fri Nov 29, 2:00 PM ET)]
     F((✅ Engaged user))
     G((🏁 End workflow))
 
@@ -51,23 +51,24 @@ flowchart TD
     A --> B
     B --> C
     C --> D
-    D -->|No, not opened| E
-    D -->|Yes, opened| F
+    D -->|"No, not opened"| E
+    D -->|"Yes, opened"| F
     E --> G
 
     %% STYLES
-    classDef trigger   fill:#eef2ff,stroke:#4f46e5,stroke-width:2px,color:#1e3a8a;
-    classDef email     fill:#e0f2fe,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e;
-    classDef delay     fill:#fef3c7,stroke:#facc15,stroke-width:2px,color:#78350f;
-    classDef decision  fill:#fef9c3,stroke:#f97316,stroke-width:2px,color:#7c2d12;
-    classDef endNode   fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d;
+    classDef trigger   fill:#eef2ff,stroke:#4f46e5,stroke-width:2px,color:#1e3a8a
+    classDef email     fill:#e0f2fe,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e
+    classDef delay     fill:#fef3c7,stroke:#facc15,stroke-width:2px,color:#78350f
+    classDef decision  fill:#fef9c3,stroke:#f97316,stroke-width:2px,color:#7c2d12
+    classDef endNode   fill:#dcfce7,stroke:#22c55e,stroke-width:2px,color:#14532d
 
-    class A trigger;
-    class B,E email;
-    class C delay;
-    class D decision;
-    class F,G endNode;
+    class A trigger
+    class B,E email
+    class C delay
+    class D decision
+    class F,G endNode
 `;
+
 
     mermaid.initialize({
         startOnLoad: false,
