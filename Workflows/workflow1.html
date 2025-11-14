@@ -2,17 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Mermaid Minimal Test</title>
+  <title>Mermaid JS Render Test</title>
 </head>
 <body>
-  <div class="mermaid">
-flowchart TD
-    A[Start] --> B[End]
-  </div>
+  <h1>Mermaid Test</h1>
 
+  <!-- Container for the rendered SVG -->
+  <div id="mermaid-container"></div>
+
+  <!-- Mermaid script -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
-    mermaid.initialize({ startOnLoad: true });
+    // Define the diagram as a JS string (so HTML can't mess with it)
+    const diagram = `
+      flowchart TD
+          A[Start] --> B[End]
+    `;
+
+    // Initialize Mermaid without auto-scan
+    mermaid.initialize({ startOnLoad: false });
+
+    // Render the diagram
+    mermaid.render('myGraph', diagram, (svgCode) => {
+      document.getElementById('mermaid-container').innerHTML = svgCode;
+    });
   </script>
 </body>
 </html>
