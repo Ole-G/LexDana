@@ -33,45 +33,41 @@
         <!-- Mermaid.js diagram container -->
         <div class="mermaid">
 graph TD
-    %% Define graph direction (Top-Down)
-
-    %% Define Nodes
-    A["Trigger: Contact added to list<br/>LEXDANA_TIER1_POWER"]
-    B["Send Email 1.1<br/>(Mon Nov 25, 9:00 AM ET)"]
+    A["Trigger: Contact added to list LEXDANA_TIER1_POWER"]
+    B["Send Email 1.1 (Mon Nov 25, 9:00 AM ET)"]
     C["Delay: Wait 96 Hours"]
-    D{"Condition: Email 1.1<br/>NOT Opened?"}
-    E["Send Email 1.2<br/>(Fri Nov 29, 2:00 PM ET)"]
+    D{"Condition: Email 1.1 NOT Opened?"}
+    E["Send Email 1.2 (Fri Nov 29, 2:00 PM ET)"]
     F["End Workflow"]
     G["End Workflow"]
 
-    %% Define Links (Connections)
     A --> B
     B --> C
     C --> D
-    D -- YES --> E
-    D -- NO --> F
+    D -->|YES| E
+    D -->|NO| F
     E --> G
 
-    %% Define Styles
-    classDef trigger fill:#eef2ff,stroke:#6366f1,stroke-width:2px,color:#312e81
-    classDef email fill:#e0f2fe,stroke:#38bdf8,stroke-width:2px,color:#0c4a6e
-    classDef delay fill:#f9fafb,stroke:#d1d5db,stroke-width:2px,color:#374151
-    classDef condition fill:#fefce8,stroke:#facc15,stroke-width:2px,color:#713f12
-    classDef end fill:#fee2e2,stroke:#f43f5e,stroke-width:2px,color:#881337
+    classDef trigger fill:#eef2ff,stroke:#6366f1,stroke-width:2px,color:#312e81;
+    classDef email fill:#e0f2fe,stroke:#38bdf8,stroke-width:2px,color:#0c4a6e;
+    classDef delay fill:#f9fafb,stroke:#d1d5db,stroke-width:2px,color:#374151;
+    classDef condition fill:#fefce8,stroke:#facc15,stroke-width:2px,color:#713f12;
+    classDef end fill:#fee2e2,stroke:#f43f5e,stroke-width:2px,color:#881337;
 
-    %% Apply Styles to Nodes
-    class A trigger
-    class B,E email
-    class C delay
-    class D condition
-    class F,G end
+    class A trigger;
+    class B,E email;
+    class C delay;
+    class D condition;
+    class F,G end;
         </div>
     </div>
 
     <!-- Load Mermaid.js and initialize it -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
-        mermaid.initialize({ startOnLoad: true });
+        mermaid.initialize({
+            startOnLoad: true
+        });
     </script>
 
 </body>
