@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexDana Workflow 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .mermaid-box {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8 pt-12 min-h-screen flex items-start justify-center">
+
+    <div class="w-full max-w-4xl">
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-4">
+            LexDana Soft Launch Campaign
+        </h1>
+        <h2 class="text-xl font-semibold text-blue-700 text-center mb-12">
+            Workflow 1: Tier 1 Power Users (2-Email Sequence)
+        </h2>
+
+        <!-- Container where the SVG will be injected -->
+        <div id="lexdana-workflow" class="mermaid-box"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+const diagram = `
+flowchart TD
+    %% NODES
+    A([New Tier 2 contact / LEXDANA_TIER2_HIGH])
+    B["Email 2.1 - Tue 26 Nov 09-00"]
+    C["Wait 72 hours"]
+    D["Email 2.2 - Fri 29 Nov 10-00"]
+    E["Wait 96 hours"]
+    F{"Email 2.1 or 2.2 opened but no link clicked?"}
+    G["Email 2.3 - Tue 3 Dec 09-00"]
+    H(("End workflow"))
+
+    %% FLOWS
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F -->|"YES"| G
+    F -->|"NO"| H
+    G --> H
+
+    %% COLORS & STYLING (same palette as Tier 1)
+    classDef trigger  fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px,color:#1E3A8A
+    classDef email    fill:#DBEAFE,stroke:#3B82F6,stroke-width:2px,color:#1E40AF
+    classDef delay    fill:#FEF3C7,stroke:#FCD34D,stroke-width:2px,color:#B45309
+    classDef decision fill:#FFE4C4,stroke:#FB923C,stroke-width:2px,color:#7C2D12
+    classDef endNode  fill:#FEE2E2,stroke:#EF4444,stroke-width:2px,color:#7F1D1D
+
+    %% CLASS ASSIGNMENTS
+    class A trigger
+    class B,D,G email
+    class C,E delay
+    class F decision
+    class H endNode
+`;
+
+
+
+    mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        flowchart: { htmlLabels: true }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const clean = diagram.trim();
+
+        try {
+            mermaid.parse(clean);
+            console.log('LexDana diagram parse OK');
+
+            mermaid
+                .render('lexdanaGraph', clean)
+                .then(({ svg }) => {
+                    document.getElementById('lexdana-workflow').innerHTML = svg;
+                })
+                .catch(err => {
+                    console.error('LexDana render error:', err);
+                });
+        } catch (e) {
+            console.error('LexDana parse error:', e);
+        }
+    });
+</script>
+
+
+</body>
+</html>
