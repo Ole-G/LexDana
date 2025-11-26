@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Welcome to LexDana</title>
+    <style>
+        /* Mobile Responsive Styles */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+                min-width: 100% !important;
+            }
+            .mobile-padding {
+                padding: 20px !important;
+            }
+            .mobile-padding-small {
+                padding: 15px !important;
+            }
+            .mobile-text {
+                font-size: 14px !important;
+            }
+            .mobile-heading {
+                font-size: 24px !important;
+            }
+            .mobile-subheading {
+                font-size: 18px !important;
+            }
+            .query-button {
+                font-size: 13px !important;
+                padding: 10px 12px !important;
+            }
+            .cta-button {
+                padding: 12px 24px !important;
+                font-size: 15px !important;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f5f5f5;">
+    
+    <!-- Email Container -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f5;">
+        <tr>
+            <td style="padding: 40px 20px;">
+                
+                <!-- Main Content Table -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="email-container" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    
+                    <!-- Logo Section -->
+                    <tr>
+                        <td style="padding: 40px 40px 20px 40px; text-align: center;" class="mobile-padding-small">
+                            <a href="https://lexdana.ai/?utm_source=brevo&utm_medium=email&utm_campaign=welcome&utm_content=logo" style="display: inline-block; text-decoration: none;">
+                                <img src="https://ole-g.github.io/LexDana/assets/logo.png" alt="LexDana" style="max-width: 180px; height: auto; display: block; margin: 0 auto; border: 0;">
+                            </a>
+                        </td>
+                    </tr>
+                    
+                    <!-- Welcome Message -->
+                    <tr>
+                        <td style="padding: 20px 40px 30px 40px;" class="mobile-padding">
+                            <h1 style="margin: 0 0 20px 0; font-size: 28px; font-weight: 700; color: #1a1a1a; line-height: 1.3;" class="mobile-heading">
+                                Hi {{contact.FIRSTNAME}},
+                            </h1>
+                            <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">
+                                Welcome to LexDana! You now have access to conversational PTAB intelligence powered by Patexia's 15+ years of patent litigation data.
+                            </p>
+                            <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">
+                                No dashboards to learn. No training required. Just ask in plain English.
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Divider -->
+                    <tr>
+                        <td style="padding: 0 40px;" class="mobile-padding">
+                            <div style="border-top: 1px solid #e5e5e5;"></div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Try Your First Query Section -->
+                    <tr>
+                        <td style="padding: 30px 40px;" class="mobile-padding">
+                            <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 600; color: #1a1a1a;" class="mobile-subheading">
+                                🚀 TRY YOUR FIRST QUERY
+                            </h2>
+                            <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">
+                                Click any query below to try it instantly:
+                            </p>
+                            
+                            <!-- Query Example 1 - Clickable -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 10px;">
+                                <tr>
+                                    <td>
+                                        <a href="https://patexia.com/lexdana?query=Show%20all%20IPR%20cases%20filed%20against%20Samsung%20in%202024%20with%20Final%20Written%20Decisions&utm_source=brevo&utm_medium=email&utm_campaign=welcome&utm_content=query1" 
+                                           class="query-button"
+                                           style="display: block; padding: 14px 16px; background-color: #f8f8f8; border: 1px solid #e0e0e0; border-radius: 6px; text-decoration: none; color: #2c3e50; font-size: 14px; line-height: 1.5; transition: background-color 0.2s;">
+                                            <span style="color: #0066cc; font-weight: 600;">→</span> Show all IPR cases filed against Samsung in 2024 with Final Written Decisions
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Query Example 2 - Clickable -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 10px;">
+                                <tr>
+                                    <td>
+                                        <a href="https://patexia.com/lexdana?query=What%20is%20the%20institution%20rate%20for%20pharmaceutical%20patents%20in%20the%20last%202%20years&utm_source=brevo&utm_medium=email&utm_campaign=welcome&utm_content=query2" 
+                                           class="query-button"
+                                           style="display: block; padding: 14px 16px; background-color: #f8f8f8; border: 1px solid #e0e0e0; border-radius: 6px; text-decoration: none; color: #2c3e50; font-size: 14px; line-height: 1.5; transition: background-color 0.2s;">
+                                            <span style="color: #0066cc; font-weight: 600;">→</span> What is the institution rate for pharmaceutical patents in the last 2 years?
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Query Example 3 - Clickable -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 10px;">
+                                <tr>
+                                    <td>
+                                        <a href="https://patexia.com/lexdana?query=Compare%20Fish%20%26%20Richardson%27s%20PTAB%20win%20rate%20to%20Kirkland%20%26%20Ellis&utm_source=brevo&utm_medium=email&utm_campaign=welcome&utm_content=query3" 
+                                           class="query-button"
+                                           style="display: block; padding: 14px 16px; background-color: #f8f8f8; border: 1px solid #e0e0e0; border-radius: 6px; text-decoration: none; color: #2c3e50; font-size: 14px; line-height: 1.5; transition: background-color 0.2s;">
+                                            <span style="color: #0066cc; font-weight: 600;">→</span> Compare Fish & Richardson's PTAB win rate to Kirkland & Ellis
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="margin: 20px 0 0 0; font-size: 15px; line-height: 1.6; color: #666666;" class="mobile-text">
+                                Then refine by asking follow-ups like:<br>
+                                <em>"Add judge names and sort by filing date"</em>
+                            </p>
+                            
+                            <!-- Primary CTA Button -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top: 24px;">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <a href="https://patexia.com/lexdana?utm_source=brevo&utm_medium=email&utm_campaign=welcome&utm_content=primary_cta" 
+                                           class="cta-button"
+                                           style="display: inline-block; padding: 14px 32px; background-color: #0066cc; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600; border-radius: 6px;">
+                                            Access LexDana Now
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Divider -->
+                    <tr>
+                        <td style="padding: 0 40px;" class="mobile-padding">
+                            <div style="border-top: 1px solid #e5e5e5;"></div>
+                        </td>
+                    </tr>
+                    
+                    <!-- What You Can Do Section -->
+                    <tr>
+                        <td style="padding: 30px 40px;" class="mobile-padding">
+                            <h2 style="margin: 0 0 20px 0; font-size: 20px; font-weight: 600; color: #1a1a1a;" class="mobile-subheading">
+                                💡 WHAT YOU CAN DO WITH LEXDANA
+                            </h2>
+                            
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td style="padding: 0 0 12px 0;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                            <tr>
+                                                <td style="vertical-align: top; padding-right: 12px; color: #0066cc; font-size: 18px;">✓</td>
+                                                <td style="font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">Analyze opposing counsel performance</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0 0 12px 0;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                            <tr>
+                                                <td style="vertical-align: top; padding-right: 12px; color: #0066cc; font-size: 18px;">✓</td>
+                                                <td style="font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">Track PTAB trends by technology area</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0 0 12px 0;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                            <tr>
+                                                <td style="vertical-align: top; padding-right: 12px; color: #0066cc; font-size: 18px;">✓</td>
+                                                <td style="font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">Research judge decision patterns</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0 0 12px 0;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                            <tr>
+                                                <td style="vertical-align: top; padding-right: 12px; color: #0066cc; font-size: 18px;">✓</td>
+                                                <td style="font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">Prepare conflict checks in seconds</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                            <tr>
+                                                <td style="vertical-align: top; padding-right: 12px; color: #0066cc; font-size: 18px;">✓</td>
+                                                <td style="font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">Generate business development insights</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Divider -->
+                    <tr>
+                        <td style="padding: 0 40px;" class="mobile-padding">
+                            <div style="border-top: 1px solid #e5e5e5;"></div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 30px 40px 20px 40px;" class="mobile-padding">
+                            <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">
+                                Questions? Reply to this email anytime.
+                            </p>
+                            <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">
+                                We're here to help you get the most out of LexDana.
+                            </p>
+                            <p style="margin: 24px 0 0 0; font-size: 16px; line-height: 1.6; color: #333333;" class="mobile-text">
+                                Best,<br>
+                                <strong>The LexDana Team</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- P.S. Section -->
+                    <tr>
+                        <td style="padding: 0 40px 30px 40px;" class="mobile-padding">
+                            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #666666; font-style: italic;" class="mobile-text">
+                                P.S. - Your account includes 5 free queries per day. Start exploring.
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Divider -->
+                    <tr>
+                        <td style="padding: 0 40px;" class="mobile-padding">
+                            <div style="border-top: 1px solid #e5e5e5;"></div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Secondary CTA -->
+                    <tr>
+                        <td style="padding: 30px 40px 40px 40px;" class="mobile-padding">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <a href="https://patexia.com/lexdana?utm_source=brevo&utm_medium=email&utm_campaign=welcome&utm_content=secondary_cta" 
+                                           class="cta-button"
+                                           style="display: inline-block; padding: 14px 32px; background-color: #0066cc; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600; border-radius: 6px;">
+                                            Access LexDana Now
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                </table>
+                <!-- End Main Content Table -->
+                
+                <!-- Footer Links -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="email-container" style="max-width: 600px; margin: 20px auto 0;">
+                    <tr>
+                        <td style="text-align: center; padding: 20px; font-size: 12px; line-height: 1.5; color: #999999;" class="mobile-padding-small">
+                            <p style="margin: 0 0 8px 0;">
+                                © 2025 Patexia. All rights reserved.
+                            </p>
+                            <p style="margin: 0;">
+                                <a href="{{unsubscribe}}" style="color: #0066cc; text-decoration: underline;">Unsubscribe</a> | 
+                                <a href="{{update_profile}}" style="color: #0066cc; text-decoration: underline;">Update Preferences</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>
