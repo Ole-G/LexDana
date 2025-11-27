@@ -39,6 +39,64 @@
 
         // --- Data ---
 
+        const dimensionContent = [
+            {
+                id: 1,
+                title: "Dimension 1: Firm Type",
+                desc: "The structural reality of the firm dictates budget, decision speed, and the specific value proposition of data.",
+                blocks: [
+                    { title: "AmLaw 100/200", tags: ["Global Scale", "Full Service"], focus: "Cross-selling, Market Dominance, High Rates.", color: "border-blue-600", tagColor: "bg-blue-100 text-blue-800" },
+                    { title: "IP Boutique", tags: ["Specialized", "Agile"], focus: "Expertise Depth, Efficiency, Specific Outcomes.", color: "border-indigo-500", tagColor: "bg-indigo-100 text-indigo-800" },
+                    { title: "In-House Dept", tags: ["Cost Center", "Strategic"], focus: "Budget Management, Vendor Selection, Risk.", color: "border-teal-500", tagColor: "bg-teal-100 text-teal-800" },
+                    { title: "Solo / Small Firm", tags: ["Niche", "Personal"], focus: "Cost-effectiveness, Specific technical niche.", color: "border-purple-500", tagColor: "bg-purple-100 text-purple-800" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Dimension 2: Engagement Level",
+                desc: "How familiar is the prospect with the ecosystem? This determines the education gap and the starting point of the conversation.",
+                blocks: [
+                    { title: "Ranked / Listed", tags: ["High Awareness", "Validated"], focus: "Maintaining status, Leveraging accolades.", color: "border-blue-600", tagColor: "bg-blue-100 text-blue-800" },
+                    { title: "Current Subscriber", tags: ["Power User", "Data-Driven"], focus: "Platform retention, Feature expansion.", color: "border-indigo-500", tagColor: "bg-indigo-100 text-indigo-800" },
+                    { title: "Past Customer", tags: ["Churned", "Aware"], focus: "Win-back, Addressing previous gaps.", color: "border-teal-500", tagColor: "bg-teal-100 text-teal-800" },
+                    { title: "Cold Prospect", tags: ["Unaware", "High Friction"], focus: "Education, Establishing basic trust.", color: "border-purple-500", tagColor: "bg-purple-100 text-purple-800" }
+                ]
+            },
+            {
+                id: 3,
+                title: "Dimension 3: Practice Area",
+                desc: "Different IP practices have distinct data needs. A PTAB attorney needs different metrics than a District Court litigator.",
+                blocks: [
+                    { title: "PTAB / IPR", tags: ["Administrative", "Invalidity"], focus: "Board Stats, ALJ tendencies, Institution rates.", color: "border-blue-600", tagColor: "bg-blue-100 text-blue-800" },
+                    { title: "ITC (Section 337)", tags: ["Import Bans", "Fast Paced"], focus: "Speed, Exclusion Orders, Domestic Industry.", color: "border-indigo-500", tagColor: "bg-indigo-100 text-indigo-800" },
+                    { title: "District Court", tags: ["Litigation", "Juries"], focus: "Judge Analytics, Damages, Venue stats.", color: "border-teal-500", tagColor: "bg-teal-100 text-teal-800" },
+                    { title: "Prosecution", tags: ["Patents", "Trademarks"], focus: "Allowance rates, Office Action responses.", color: "border-purple-500", tagColor: "bg-purple-100 text-purple-800" }
+                ]
+            },
+            {
+                id: 4,
+                title: "Dimension 4: Use Case",
+                desc: "What is the immediate 'Job to be Done'? The utility of the data changes based on the user's immediate goal.",
+                blocks: [
+                    { title: "Business Dev", tags: ["Pitching", "Growth"], focus: "Win rates, Market Share, Competitor comparisons.", color: "border-blue-600", tagColor: "bg-blue-100 text-blue-800" },
+                    { title: "Case Preparation", tags: ["Strategy", "Research"], focus: "Opposing counsel research, Precedent search.", color: "border-indigo-500", tagColor: "bg-indigo-100 text-indigo-800" },
+                    { title: "Competitive Intel", tags: ["Benchmarking", "Strategy"], focus: "Firm performance vs. Peers, lateral movement.", color: "border-teal-500", tagColor: "bg-teal-100 text-teal-800" },
+                    { title: "Recruiting / Hiring", tags: ["Talent", "Expansion"], focus: "Lateral partner track record, Book of business.", color: "border-purple-500", tagColor: "bg-purple-100 text-purple-800" }
+                ]
+            },
+            {
+                id: 5,
+                title: "Dimension 5: Professional Role",
+                desc: "Messaging tone, technical depth, and value proposition change significantly based on the user's role and decision-making authority.",
+                blocks: [
+                    { title: "Partners / Leaders", tags: ["Budget Authority", "Strategic"], focus: "ROI, Strategic Value, Time Savings.", color: "border-blue-600", tagColor: "bg-blue-100 text-blue-800" },
+                    { title: "In-House Counsel", tags: ["Vendor Selection", "Risk Mgmt"], focus: "Cost Control, Benchmarking, Oversight.", color: "border-indigo-500", tagColor: "bg-indigo-100 text-indigo-800" },
+                    { title: "Associates", tags: ["Day-to-day Users", "Influencers"], focus: "Efficiency, Skill Development, Accuracy.", color: "border-teal-500", tagColor: "bg-teal-100 text-teal-800" },
+                    { title: "BD Professionals", tags: ["Pipeline Building", "Intelligence"], focus: "Lead Gen, Pitch Decks, Competitive Intel.", color: "border-purple-500", tagColor: "bg-purple-100 text-purple-800" }
+                ]
+            }
+        ];
+
         const prioritizationData = [
             { persona: "BigLaw Rainmaker", priority: 1, conversion: 22, rationale: "Existing Trust" },
             { persona: "Boutique Competitor", priority: 2, conversion: 15, rationale: "Differentiation" },
@@ -233,49 +291,26 @@
             </div>
         );
 
-        const RoleHierarchySlide = () => (
+        // --- Generic Dimension Detail Slide Component ---
+        const DimensionDetailSlide = ({ dimData }) => (
             <div className="h-full p-12 bg-slate-50 flex flex-col items-center animate-fade-in">
-                <h2 className="text-3xl font-bold text-slate-800 mb-6 animate-slide-up">Dimension 5: Professional Role</h2>
+                <h2 className="text-3xl font-bold text-slate-800 mb-6 animate-slide-up">{dimData.title}</h2>
                 <p className="text-slate-600 mb-12 text-center max-w-2xl animate-slide-up" style={{animationDelay: '0.1s'}}>
-                    Messaging tone, technical depth, and value proposition change significantly based on the user's role and decision-making authority.
+                    {dimData.desc}
                 </p>
 
                 <div className="grid grid-cols-2 gap-8 w-full max-w-5xl">
-                    <div className="bg-white p-6 rounded-lg shadow border-t-4 border-blue-600 animate-slide-up" style={{animationDelay: '0.2s'}}>
-                        <h3 className="text-xl font-bold text-slate-800 mb-2">Partners / Leaders</h3>
-                        <div className="flex gap-2 mb-4">
-                            <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Budget Authority</span>
-                            <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Strategic</span>
+                    {dimData.blocks.map((block, idx) => (
+                        <div key={idx} className={`bg-white p-6 rounded-lg shadow border-t-4 ${block.color} animate-slide-up`} style={{animationDelay: `${0.2 + (idx * 0.1)}s`}}>
+                            <h3 className="text-xl font-bold text-slate-800 mb-2">{block.title}</h3>
+                            <div className="flex gap-2 mb-4 flex-wrap">
+                                {block.tags.map((tag, tIdx) => (
+                                    <span key={tIdx} className={`${block.tagColor} text-xs px-2 py-1 rounded`}>{tag}</span>
+                                ))}
+                            </div>
+                            <p className="text-slate-600 text-sm"><strong>Focus:</strong> {block.focus}</p>
                         </div>
-                        <p className="text-slate-600 text-sm"><strong>Focus:</strong> ROI, Strategic Value, Time Savings.</p>
-                    </div>
-
-                    <div className="bg-white p-6 rounded-lg shadow border-t-4 border-indigo-500 animate-slide-up" style={{animationDelay: '0.3s'}}>
-                        <h3 className="text-xl font-bold text-slate-800 mb-2">In-House Counsel</h3>
-                        <div className="flex gap-2 mb-4">
-                            <span className="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded">Vendor Selection</span>
-                            <span className="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded">Risk Mgmt</span>
-                        </div>
-                        <p className="text-slate-600 text-sm"><strong>Focus:</strong> Cost Control, Benchmarking, Oversight.</p>
-                    </div>
-
-                    <div className="bg-white p-6 rounded-lg shadow border-t-4 border-teal-500 animate-slide-up" style={{animationDelay: '0.4s'}}>
-                        <h3 className="text-xl font-bold text-slate-800 mb-2">Associates</h3>
-                        <div className="flex gap-2 mb-4">
-                            <span className="bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded">Day-to-day Users</span>
-                            <span className="bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded">Influencers</span>
-                        </div>
-                        <p className="text-slate-600 text-sm"><strong>Focus:</strong> Efficiency, Skill Development, Accuracy.</p>
-                    </div>
-
-                    <div className="bg-white p-6 rounded-lg shadow border-t-4 border-purple-500 animate-slide-up" style={{animationDelay: '0.5s'}}>
-                        <h3 className="text-xl font-bold text-slate-800 mb-2">BD Professionals</h3>
-                        <div className="flex gap-2 mb-4">
-                            <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Pipeline Building</span>
-                            <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Intelligence</span>
-                        </div>
-                        <p className="text-slate-600 text-sm"><strong>Focus:</strong> Lead Gen, Pitch Decks, Competitive Intel.</p>
-                    </div>
+                    ))}
                 </div>
             </div>
         );
@@ -289,10 +324,11 @@
                     {personas.map((p, idx) => (
                         <div key={idx} className={`group relative overflow-hidden rounded-xl shadow-lg cursor-default hover:shadow-xl transition-shadow border border-slate-100 animate-slide-up`} style={{ animationDelay: `${200 + (idx * 100)}ms` }}>
                             <div className={`h-2 w-full ${p.color}`}></div>
-                            <div className="p-6">
+                            <div className="p-6 h-full flex flex-col">
                                 <h3 className="font-bold text-lg text-slate-800 mb-1">{p.title}</h3>
                                 <p className="text-sm text-slate-500 mb-4">{p.role}</p>
-                                <p className="text-xs italic text-slate-400">"{p.quote.substring(0, 60)}..."</p>
+                                {/* Quote updated to show full text without truncation */}
+                                <p className="text-xs italic text-slate-400 whitespace-normal">"{p.quote}"</p>
                             </div>
                             <div className={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform`}></div>
                         </div>
@@ -488,7 +524,11 @@
                 TitleSlide,
                 ExecSummarySlide,
                 DimensionsSlide,
-                RoleHierarchySlide,
+                () => <DimensionDetailSlide dimData={dimensionContent[0]} />,
+                () => <DimensionDetailSlide dimData={dimensionContent[1]} />,
+                () => <DimensionDetailSlide dimData={dimensionContent[2]} />,
+                () => <DimensionDetailSlide dimData={dimensionContent[3]} />,
+                () => <DimensionDetailSlide dimData={dimensionContent[4]} />,
                 PersonasOverviewSlide,
                 () => <PersonaDetailSlide persona={personas[0]} />,
                 () => <PersonaDetailSlide persona={personas[1]} />,
@@ -606,3 +646,4 @@
     </script>
 </body>
 </html>
+```
