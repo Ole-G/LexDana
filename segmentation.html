@@ -309,7 +309,7 @@
                 
                 <div className="relative w-full max-w-4xl h-[500px]">
                     
-                    {/* Connectors (SVG Lines) */}
+                    {/* Connectors (SVG Lines) - PLACED FIRST TO BE BEHIND */}
                     <svg className="absolute inset-0 w-full h-full z-0 pointer-events-none animate-fade-in" style={{animationDelay: '0.7s'}}>
                         <line x1="50%" y1="50%" x2="50%" y2="12%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
                         <line x1="50%" y1="50%" x2="85%" y2="38%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
@@ -318,7 +318,7 @@
                         <line x1="50%" y1="50%" x2="15%" y2="38%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
                     </svg>
 
-                    {/* Central Core */}
+                    {/* Central Core - WRAPPED FOR ALIGNMENT */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                         <div className="w-48 h-48 bg-blue-600 rounded-full flex items-center justify-center shadow-2xl animate-pop-in" style={{animationDelay: '0.1s'}}>
                             <div className="text-center text-white">
@@ -328,8 +328,9 @@
                         </div>
                     </div>
 
-                    {/* Orbiting Dimensions */}
-                    {/* Top */}
+                    {/* Orbiting Dimensions - Staggered entrance */}
+                    
+                    {/* Top - FIXED ALIGNMENT: Positioning is on the wrapper, Animation is on the child */}
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-10">
                         <div className="w-64 p-4 bg-slate-50 border border-slate-200 rounded-xl shadow-md text-center hover:scale-105 transition-transform animate-scale-in" style={{animationDelay: '0.2s'}}>
                             <div className="inline-block p-2 bg-blue-100 text-blue-600 rounded-lg mb-2"><Icons.Briefcase /></div>
@@ -474,7 +475,7 @@
         );
 
         const EmailSlide = ({ persona }) => (
-            <div className="h-full p-0 flex flex-row animate-fade-in bg-slate-50">
+            <div className="h-full w-full flex flex-row animate-fade-in bg-slate-50 overflow-hidden">
                 {/* Left Side: Context/Title */}
                 <div className={`w-1/3 p-12 flex flex-col justify-center text-white ${persona.color} relative overflow-hidden`}>
                     {/* Background decoration */}
@@ -497,16 +498,16 @@
                     </div>
                 </div>
 
-                {/* Right Side: The Email (Scrollable) */}
-                <div className="w-2/3 h-full overflow-y-auto p-8 bg-slate-100 flex flex-col items-center">
-                    <div className="w-full max-w-xl bg-white rounded-lg shadow-xl overflow-hidden animate-slide-up transform scale-95 origin-top" style={{animationDelay: '0.2s'}}>
-                        {/* Header Image/Logo Area */}
-                        <div className="p-6 text-center border-b border-gray-100">
-                            <img src={Logo} alt="LexDana" className="h-8 mx-auto" />
+                {/* Right Side: The Email (Card Body scrolls, Card itself fixed) */}
+                <div className="w-2/3 h-full p-8 bg-slate-200/50 flex items-center justify-center relative">
+                    <div className="w-full max-w-xl bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90%] animate-slide-up" style={{animationDelay: '0.2s'}}>
+                        {/* Header (Fixed) */}
+                        <div className="p-5 text-center border-b border-gray-100 bg-white shrink-0 z-10">
+                            <img src={Logo} alt="LexDana" className="h-6 mx-auto" />
                         </div>
 
-                        {/* Email Body */}
-                        <div className="p-8 space-y-5 text-sm">
+                        {/* Body (Scrollable) */}
+                        <div className="p-8 overflow-y-auto space-y-5 text-sm custom-scrollbar bg-white">
                             <h1 className="text-xl font-bold text-gray-900">Hi [First Name],</h1>
                             
                             <p className="text-gray-700 leading-relaxed">{persona.email.intro}</p>
@@ -535,8 +536,8 @@
                             </div>
                         </div>
 
-                        {/* Footer */}
-                        <div className="bg-gray-50 p-3 text-center border-t border-gray-100">
+                        {/* Footer (Fixed) */}
+                        <div className="bg-gray-50 p-3 text-center border-t border-gray-100 shrink-0">
                             <p className="text-[10px] text-gray-400">Sample Email Approach</p>
                         </div>
                     </div>
@@ -674,21 +675,17 @@
                 () => <DimensionDetailSlide dimData={dimensionContent[3]} />,
                 () => <DimensionDetailSlide dimData={dimensionContent[4]} />,
                 PersonasOverviewSlide,
-                () => <PersonaDetailSlide persona={personas[0]} />,
-                () => <EmailSlide persona={personas[0]} />,
-                () => <PersonaDetailSlide persona={personas[1]} />,
-                () => <EmailSlide persona={personas[1]} />,
-                () => <PersonaDetailSlide persona={personas[2]} />,
-                () => <EmailSlide persona={personas[2]} />,
-                () => <PersonaDetailSlide persona={personas[3]} />,
-                () => <EmailSlide persona={personas[3]} />,
-                () => <PersonaDetailSlide persona={personas[4]} />,
-                () => <EmailSlide persona={personas[4]} />,
-                () => <PersonaDetailSlide persona={personas[5]} />,
-                () => <EmailSlide persona={personas[5]} />,
-                MatrixSlide,
-                PrioritizationSlide
             ];
+
+            // Add Persona Details + Email Sample pairs
+            personas.forEach(p => {
+                slides.push(() => <PersonaDetailSlide persona={p} />);
+                slides.push(() => <EmailSlide persona={p} />);
+            });
+
+            // Add final slides
+            slides.push(MatrixSlide);
+            slides.push(PrioritizationSlide);
 
             const nextSlide = () => setCurrentSlide(curr => Math.min(curr + 1, slides.length - 1));
             // FIXED: Corrected the back button logic (curr - 1)
@@ -743,10 +740,11 @@
                         .animate-pop-in { opacity: 0; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
                         .animate-grow-bar { transform-origin: bottom; animation: growBar 0.8s ease-out forwards; }
                         
-                        ::-webkit-scrollbar { width: 6px; height: 6px; }
-                        ::-webkit-scrollbar-track { background: #f1f5f9; }
-                        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-                        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+                        /* Scrollbar styling */
+                        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+                        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+                        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+                        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
                     `}</style>
 
                     {/* Top Bar */}
@@ -796,4 +794,3 @@
     </script>
 </body>
 </html>
-```
