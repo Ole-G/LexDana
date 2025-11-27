@@ -1,0 +1,513 @@
+import React, { useState, useEffect } from 'react';
+
+const Logo = "https://ole-g.github.io/LexDana/assets/logo.png";
+
+// --- Icons (Custom SVG Components) ---
+const Icons = {
+    ChevronRight: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>,
+    ChevronLeft: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>,
+    Target: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>,
+    Users: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>,
+    Briefcase: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>,
+    Activity: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>,
+    Award: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>,
+    Layers: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+};
+
+// --- Data ---
+
+const prioritizationData = [
+    { persona: "BigLaw Rainmaker", priority: 1, conversion: 22, rationale: "Existing Trust" },
+    { persona: "Boutique Competitor", priority: 2, conversion: 15, rationale: "Differentiation" },
+    { persona: "ITC Specialist", priority: 3, conversion: 14, rationale: "Niche Need" },
+    { persona: "BD Pro", priority: 4, conversion: 12, rationale: "Clear ROI" },
+    { persona: "In-House Counsel", priority: 5, conversion: 8, rationale: "High LTV" },
+    { persona: "Emerging Associate", priority: 6, conversion: 5, rationale: "Volume Play" },
+];
+
+const personas = [
+    {
+        title: "The BigLaw Rainmaker",
+        role: "Partner / Practice Leader",
+        firm: "AmLaw 100-200",
+        quote: "I need to win the next pitch—and I need data that makes us look better than the competition.",
+        pain: "Needs quick access to firm performance data; Must demonstrate track record with hard numbers.",
+        msg: "You already trust our rankings. Now use the same intelligence engine to win your next pitch.",
+        color: "bg-blue-600"
+    },
+    {
+        title: "The Boutique Competitor",
+        role: "Partner / Senior Associate",
+        firm: "IP Boutique",
+        quote: "We beat BigLaw on expertise. We need tools that help us prove it.",
+        pain: "Competing against larger firms with more resources; Needs to demonstrate specialized expertise.",
+        msg: "Access the same intelligence as AmLaw 100 firms—at a fraction of the cost.",
+        color: "bg-indigo-600"
+    },
+    {
+        title: "The Strategic In-House",
+        role: "VP / Chief IP Counsel",
+        firm: "Fortune 500 Corporate",
+        quote: "I manage a $10M budget. I need data to justify every dollar.",
+        pain: "Difficult to evaluate outside counsel objectively; Needs to justify spend to CFO.",
+        msg: "Stop evaluating counsel based on relationships. Start using performance data that tracks outcomes.",
+        color: "bg-slate-600"
+    },
+    {
+        title: "The ITC Specialist",
+        role: "Partner / Senior Associate",
+        firm: "ITC Practice",
+        quote: "ITC moves fast. I need real-time intelligence on ALJ patterns.",
+        pain: "High stakes, tight timelines; Needs to track ALJ decision patterns.",
+        msg: "ITC investigations can disrupt supply chains overnight. Get the intelligence edge that matters.",
+        color: "bg-teal-600"
+    },
+    {
+        title: "The Emerging Associate",
+        role: "Jr. to Mid-Level Associate",
+        firm: "Mid-sized / Boutique",
+        quote: "I want to impress the partners and build my reputation.",
+        pain: "Pressured to deliver research quickly; Wants to look smarter than peers.",
+        msg: "Deliver partner-quality research in associate time. Your AI-powered competitive advantage.",
+        color: "bg-sky-500"
+    },
+    {
+        title: "The BD Professional",
+        role: "CMO / BD Director",
+        firm: "AmLaw / Boutique",
+        quote: "My job is to fill the pipeline. I need leads and win-rate data.",
+        pain: "Needs to identify prospects; Struggles to quantify firm performance vs competitors.",
+        msg: "Turn Patexia data into pipeline. Find prospects, track competitors, and win more pitches.",
+        color: "bg-violet-600"
+    }
+];
+
+// --- Slide Components ---
+
+const TitleSlide = () => (
+    <div className="h-full flex flex-col items-center justify-center text-center p-8 bg-white animate-fade-in">
+        <img src={Logo} alt="LexDana Logo" className="h-20 mb-6" />
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Sophisticated Segmentation</h1>
+        <h2 className="text-xl md:text-2xl text-slate-500 font-light mb-8">Multi-Dimensional Customer Personas</h2>
+        <div className="w-24 h-1 bg-blue-600 rounded-full mb-8"></div>
+        <p className="text-slate-400 text-xs uppercase tracking-widest">Strategy Deck • November 2025</p>
+    </div>
+);
+
+const ExecSummarySlide = () => (
+    <div className="h-full p-8 bg-slate-50 flex flex-col animate-fade-in">
+        <h2 className="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-blue-600 pl-4 flex-shrink-0">Executive Summary</h2>
+        
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-8 min-h-0">
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100 flex flex-col justify-center">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-blue-100 rounded-lg text-blue-600"><Icons.Award /></div>
+                    <h3 className="text-lg font-bold text-slate-800">The Core Advantage</h3>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                    Patexia's unique market position is the foundation. No competitor provides attorney/firm rankings, individual performance metrics, or the data depth that powers these insights.
+                </p>
+                <p className="font-semibold text-blue-700 text-sm">
+                    LexDana is "the tool behind the rankings."
+                </p>
+            </div>
+
+            <div className="flex flex-col justify-center space-y-4">
+                <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Key Differentiators</h3>
+                
+                <div className="flex gap-4 items-start">
+                    <div className="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">1</div>
+                    <div>
+                        <h4 className="font-bold text-slate-800 text-sm">Rankings-Centric Positioning</h4>
+                        <p className="text-slate-500 text-xs">Leverages established authority rather than generic "AI for lawyers" messaging.</p>
+                    </div>
+                </div>
+
+                <div className="flex gap-4 items-start">
+                    <div className="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">2</div>
+                    <div>
+                        <h4 className="font-bold text-slate-800 text-sm">Multi-Dimensional Segments</h4>
+                        <p className="text-slate-500 text-xs">Combines 5 dimensions (Firm, Engagement, Practice, Role, Use Case).</p>
+                    </div>
+                </div>
+
+                <div className="flex gap-4 items-start">
+                    <div className="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">3</div>
+                    <div>
+                        <h4 className="font-bold text-slate-800 text-sm">Engagement-Aware Outreach</h4>
+                        <p className="text-slate-500 text-xs">Differentiates between rankings-engaged firms, subscribers, and cold prospects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+const DimensionsSlide = () => (
+    <div className="h-full w-full p-6 bg-white flex flex-col animate-fade-in overflow-hidden relative">
+        <h2 className="text-2xl font-bold text-slate-800 mb-2 text-center z-20">The 5 Dimensions of Segmentation</h2>
+        
+        <div className="flex-1 relative w-full h-full">
+            {/* Central Core */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-40 md:h-40 bg-blue-600 rounded-full flex items-center justify-center shadow-2xl z-10 animate-pulse">
+                <div className="text-center text-white">
+                    <h3 className="text-xl font-bold">LexDana</h3>
+                    <p className="text-blue-100 text-xs">Customer Profile</p>
+                </div>
+            </div>
+
+            {/* Orbiting Dimensions - Using Percentages for Responsive positioning */}
+            {/* Top */}
+            <div className="absolute top-[5%] left-1/2 transform -translate-x-1/2 w-48 md:w-56 p-3 bg-slate-50 border border-slate-200 rounded-xl shadow-md text-center">
+                <div className="inline-block p-1.5 bg-blue-100 text-blue-600 rounded-lg mb-1"><Icons.Briefcase /></div>
+                <h4 className="font-bold text-slate-800 text-sm">1. Firm Type</h4>
+                <p className="text-[10px] text-slate-500">AmLaw, Boutique, In-House</p>
+            </div>
+
+            {/* Right Top */}
+            <div className="absolute top-[25%] right-[5%] w-48 md:w-56 p-3 bg-slate-50 border border-slate-200 rounded-xl shadow-md text-center">
+                <div className="inline-block p-1.5 bg-purple-100 text-purple-600 rounded-lg mb-1"><Icons.Activity /></div>
+                <h4 className="font-bold text-slate-800 text-sm">2. Engagement</h4>
+                <p className="text-[10px] text-slate-500">Ranked, Subscriber, Cold</p>
+            </div>
+
+            {/* Right Bottom */}
+            <div className="absolute bottom-[10%] right-[10%] w-48 md:w-56 p-3 bg-slate-50 border border-slate-200 rounded-xl shadow-md text-center">
+                <div className="inline-block p-1.5 bg-green-100 text-green-600 rounded-lg mb-1"><Icons.Layers /></div>
+                <h4 className="font-bold text-slate-800 text-sm">3. Practice Area</h4>
+                <p className="text-[10px] text-slate-500">PTAB, ITC, Multi-practice</p>
+            </div>
+
+            {/* Left Bottom */}
+            <div className="absolute bottom-[10%] left-[10%] w-48 md:w-56 p-3 bg-slate-50 border border-slate-200 rounded-xl shadow-md text-center">
+                <div className="inline-block p-1.5 bg-orange-100 text-orange-600 rounded-lg mb-1"><Icons.Target /></div>
+                <h4 className="font-bold text-slate-800 text-sm">4. Use Case</h4>
+                <p className="text-[10px] text-slate-500">BD, Case Prep, CI, Hiring</p>
+            </div>
+
+            {/* Left Top */}
+            <div className="absolute top-[25%] left-[5%] w-48 md:w-56 p-3 bg-slate-50 border border-slate-200 rounded-xl shadow-md text-center">
+                <div className="inline-block p-1.5 bg-red-100 text-red-600 rounded-lg mb-1"><Icons.Users /></div>
+                <h4 className="font-bold text-slate-800 text-sm">5. Role</h4>
+                <p className="text-[10px] text-slate-500">Partner, Associate, BD</p>
+            </div>
+
+            {/* Connectors (SVG Lines) */}
+            <svg className="absolute inset-0 w-full h-full -z-10 pointer-events-none">
+                <line x1="50%" y1="50%" x2="50%" y2="18%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
+                <line x1="50%" y1="50%" x2="80%" y2="35%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
+                <line x1="50%" y1="50%" x2="70%" y2="80%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
+                <line x1="50%" y1="50%" x2="30%" y2="80%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
+                <line x1="50%" y1="50%" x2="20%" y2="35%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
+            </svg>
+        </div>
+    </div>
+);
+
+const RoleHierarchySlide = () => (
+    <div className="h-full p-8 bg-slate-50 flex flex-col animate-fade-in">
+        <h2 className="text-2xl font-bold text-slate-800 mb-4 flex-shrink-0">Dimension 5: Professional Role</h2>
+        <p className="text-slate-600 mb-6 text-sm max-w-2xl flex-shrink-0">
+            Messaging tone, technical depth, and value proposition change significantly based on decision-making authority.
+        </p>
+
+        <div className="flex-1 grid grid-cols-2 gap-6 min-h-0 overflow-hidden">
+            <div className="bg-white p-4 rounded-lg shadow border-t-4 border-blue-600 flex flex-col">
+                <h3 className="text-lg font-bold text-slate-800 mb-2">Partners / Leaders</h3>
+                <div className="flex gap-1 mb-2 flex-wrap">
+                    <span className="bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded">Budget Authority</span>
+                    <span className="bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded">Strategic</span>
+                </div>
+                <p className="text-slate-600 text-xs"><strong>Focus:</strong> ROI, Strategic Value, Time Savings.</p>
+            </div>
+
+            <div className="bg-white p-4 rounded-lg shadow border-t-4 border-indigo-500 flex flex-col">
+                <h3 className="text-lg font-bold text-slate-800 mb-2">In-House Counsel</h3>
+                <div className="flex gap-1 mb-2 flex-wrap">
+                    <span className="bg-indigo-100 text-indigo-800 text-[10px] px-2 py-0.5 rounded">Vendor Selection</span>
+                </div>
+                <p className="text-slate-600 text-xs"><strong>Focus:</strong> Cost Control, Benchmarking, Oversight.</p>
+            </div>
+
+            <div className="bg-white p-4 rounded-lg shadow border-t-4 border-teal-500 flex flex-col">
+                <h3 className="text-lg font-bold text-slate-800 mb-2">Associates</h3>
+                <div className="flex gap-1 mb-2 flex-wrap">
+                    <span className="bg-teal-100 text-teal-800 text-[10px] px-2 py-0.5 rounded">Day-to-day Users</span>
+                </div>
+                <p className="text-slate-600 text-xs"><strong>Focus:</strong> Efficiency, Skill Development, Accuracy.</p>
+            </div>
+
+            <div className="bg-white p-4 rounded-lg shadow border-t-4 border-purple-500 flex flex-col">
+                <h3 className="text-lg font-bold text-slate-800 mb-2">BD Professionals</h3>
+                <div className="flex gap-1 mb-2 flex-wrap">
+                    <span className="bg-purple-100 text-purple-800 text-[10px] px-2 py-0.5 rounded">Pipeline</span>
+                </div>
+                <p className="text-slate-600 text-xs"><strong>Focus:</strong> Lead Gen, Pitch Decks, Competitive Intel.</p>
+            </div>
+        </div>
+    </div>
+);
+
+const PersonasOverviewSlide = () => (
+    <div className="h-full p-6 md:p-8 bg-white flex flex-col animate-fade-in">
+        <div className="flex-shrink-0 mb-4">
+            <h2 className="text-2xl font-bold text-slate-800 mb-2 border-l-4 border-blue-600 pl-4">The Six Customer Personas</h2>
+            <p className="text-slate-600 text-sm">Strategic combinations of the 5 dimensions create these distinct profiles.</p>
+        </div>
+        
+        <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-4 min-h-0">
+            {personas.map((p, idx) => (
+                <div key={idx} className="group relative overflow-hidden rounded-xl shadow border border-slate-100 hover:shadow-md transition-shadow flex flex-col h-full">
+                    <div className={`h-1.5 w-full ${p.color} flex-shrink-0`}></div>
+                    <div className="p-4 flex flex-col h-full">
+                        <h3 className="font-bold text-sm text-slate-800 mb-1 leading-tight">{p.title}</h3>
+                        <p className="text-[10px] text-slate-500 mb-2 font-medium">{p.role}</p>
+                        <p className="text-[10px] italic text-slate-400 mt-auto">"{p.quote.substring(0, 50)}..."</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+);
+
+const PersonaDetailSlide = ({ persona }) => (
+    <div className="h-full p-6 bg-white flex flex-col animate-fade-in">
+        <div className="flex items-center gap-3 mb-4 flex-shrink-0">
+            <div className={`w-2 h-10 ${persona.color} rounded-full`}></div>
+            <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900">{persona.title}</h2>
+                <div className="flex gap-2">
+                    <span className="text-xs text-slate-500">{persona.role}</span>
+                    <span className="text-xs text-slate-300">|</span>
+                    <span className="text-xs text-slate-500">{persona.firm}</span>
+                </div>
+            </div>
+        </div>
+
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 min-h-0">
+            {/* Left Column: Profile & Pain */}
+            <div className="flex flex-col gap-4 h-full">
+                <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <h3 className="text-[10px] uppercase tracking-wide text-slate-400 font-bold mb-2">Voice of Customer</h3>
+                    <p className="text-base text-slate-700 italic font-serif leading-snug">
+                        "{persona.quote}"
+                    </p>
+                </div>
+
+                <div className="flex-1 overflow-y-auto pr-2">
+                    <h3 className="flex items-center gap-2 text-sm font-bold text-red-600 mb-2">
+                        Critical Pain Points
+                    </h3>
+                    <ul className="space-y-2">
+                        {persona.pain.split(';').map((point, i) => (
+                            <li key={i} className="flex items-start gap-2 text-slate-600 text-xs leading-tight">
+                                <div className="w-1 h-1 rounded-full bg-red-400 mt-1.5 flex-shrink-0"></div>
+                                {point.trim()}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+
+            {/* Right Column: Solution & Messaging */}
+            <div className="bg-slate-900 text-white p-6 rounded-xl shadow-lg flex flex-col relative overflow-hidden h-full">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white opacity-5 rounded-full -mr-8 -mt-8"></div>
+                
+                <div className="flex-1">
+                    <h3 className="text-blue-400 font-bold uppercase tracking-widest text-xs mb-3">Messaging Strategy</h3>
+                    <p className="text-lg font-light leading-snug mb-4">
+                        {persona.msg}
+                    </p>
+                </div>
+
+                <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm mt-auto">
+                    <h4 className="text-[10px] text-blue-200 uppercase mb-1">Sample Outreach Hook</h4>
+                    <p className="text-xs text-slate-200 leading-tight">
+                        {persona.title === "The BigLaw Rainmaker" && "Subject: You already use our rankings. Now use the tool behind them."}
+                        {persona.title === "The Boutique Competitor" && "Subject: Boutiques in the Top 5%: How they compete (and win)."}
+                        {persona.title === "The Strategic In-House" && "Subject: Are your outside counsel really performing?"}
+                        {persona.title === "The Strategic In-House Counsel" && "Subject: Are your outside counsel really performing?"}
+                        {persona.title === "The ITC Specialist" && "Subject: 40% more ITC investigations in 2024. Are you ready?"}
+                        {persona.title === "The Emerging Associate" && "Subject: The research shortcut partners don't know about (yet)."}
+                        {persona.title === "The BD Professional" && "Subject: Turn IP litigation data into pipeline."}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+const MatrixSlide = () => (
+    <div className="h-full p-6 bg-white flex flex-col items-center justify-center animate-fade-in">
+        <h2 className="text-2xl font-bold text-slate-800 mb-4 flex-shrink-0">Segment Mapping Matrix</h2>
+        <div className="w-full flex-1 min-h-0 overflow-hidden rounded-xl border border-slate-200 shadow-md">
+            <div className="overflow-auto h-full">
+                <table className="w-full text-left border-collapse">
+                    <thead className="bg-slate-100 text-slate-600 font-bold uppercase text-[10px] sticky top-0">
+                        <tr>
+                            <th className="p-3">Persona</th>
+                            <th className="p-3 hidden md:table-cell">Firm Type</th>
+                            <th className="p-3">Engagement</th>
+                            <th className="p-3">Use Case</th>
+                            <th className="p-3 hidden md:table-cell">Role</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 text-xs">
+                        {personas.map((p, i) => (
+                            <tr key={i} className="hover:bg-slate-50 transition-colors">
+                                <td className="p-3 font-bold text-blue-900">{p.title}</td>
+                                <td className="p-3 text-slate-600 hidden md:table-cell">{p.firm}</td>
+                                <td className="p-3 text-slate-600">
+                                    {i === 0 ? "Rankings Engaged" : 
+                                     i === 1 ? "Platform User" : 
+                                     i === 2 ? "Cold / Platform" : 
+                                     i === 3 ? "Subscriber" : 
+                                     i === 4 ? "Cold Prospect" : "Platform User"}
+                                </td>
+                                <td className="p-3 text-slate-600">
+                                        {i === 0 ? "Business Dev" : 
+                                        i === 1 ? "Comp. Intel" : 
+                                        i === 2 ? "Vendor Bench" : 
+                                        i === 3 ? "Case Prep" : 
+                                        i === 4 ? "Case Prep" : "Lead Gen"}
+                                </td>
+                                <td className="p-3 text-slate-600 hidden md:table-cell">{p.role}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+);
+
+const PrioritizationSlide = () => (
+    <div className="h-full p-8 bg-white flex flex-col animate-fade-in">
+        <h2 className="text-2xl font-bold text-slate-800 mb-2 flex-shrink-0">Prioritization & Conversion</h2>
+        <p className="text-slate-500 mb-4 text-sm flex-shrink-0">Recommended launch order based on conversion potential.</p>
+        
+        <div className="flex-1 flex items-end gap-3 md:gap-6 min-h-0 pb-6 border-b border-slate-200">
+            {prioritizationData.map((d, i) => (
+                <div key={i} className="flex-1 flex flex-col justify-end group h-full">
+                    <div className="mb-2 text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-sm font-bold text-blue-600">{d.conversion}%</span>
+                    </div>
+                    <div 
+                        className={`w-full rounded-t-lg relative transition-all duration-500 hover:bg-blue-500 ${i === 0 ? 'bg-blue-600' : 'bg-slate-200'}`}
+                        style={{ height: `${(d.conversion / 25) * 100}%` }}
+                    >
+                        {/* Tooltip for rationale */}
+                        <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                            {d.rationale}
+                        </div>
+                    </div>
+                    <div className="mt-2 text-center">
+                        <div className="w-5 h-5 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] font-bold mx-auto mb-1">
+                            {d.priority}
+                        </div>
+                        <p className="text-[10px] font-bold text-slate-700 leading-tight hidden md:block">{d.persona}</p>
+                        <p className="text-[10px] font-bold text-slate-700 leading-tight md:hidden">{d.persona.split(" ")[0]}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+);
+
+// --- Main App ---
+
+export default function App() {
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    const slides = [
+        TitleSlide,
+        ExecSummarySlide,
+        DimensionsSlide,
+        RoleHierarchySlide,
+        PersonasOverviewSlide,
+        () => <PersonaDetailSlide persona={personas[0]} />,
+        () => <PersonaDetailSlide persona={personas[1]} />,
+        () => <PersonaDetailSlide persona={personas[2]} />,
+        () => <PersonaDetailSlide persona={personas[3]} />,
+        () => <PersonaDetailSlide persona={personas[4]} />,
+        () => <PersonaDetailSlide persona={personas[5]} />,
+        MatrixSlide,
+        PrioritizationSlide
+    ];
+
+    const nextSlide = () => setCurrentSlide(curr => Math.min(curr + 1, slides.length - 1));
+    const prevSlide = () => setCurrentSlide(curr => Math.max(curr - 0, 0));
+
+    // Keyboard navigation
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    const CurrentSlideComponent = slides[currentSlide];
+
+    return (
+        <div className="w-full h-screen flex flex-col overflow-hidden relative bg-slate-100 font-sans text-slate-900">
+            {/* Styles Injection */}
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+                body { font-family: 'Inter', sans-serif; }
+                
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fade-in {
+                    animation: fadeIn 0.4s ease-out forwards;
+                }
+                
+                /* Hide scrollbar for clean look */
+                ::-webkit-scrollbar { width: 4px; height: 4px; }
+                ::-webkit-scrollbar-track { background: transparent; }
+                ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+            `}</style>
+
+            {/* Top Bar */}
+            <div className="h-12 bg-white border-b border-slate-200 flex items-center justify-between px-4 z-20 flex-shrink-0">
+                <div className="flex items-center gap-3">
+                    <img src={Logo} alt="Logo" className="h-6" />
+                    <span className="text-slate-300">|</span>
+                    <span className="text-slate-500 text-xs font-medium uppercase tracking-wider">Segmentation Framework</span>
+                </div>
+                <div className="text-slate-400 text-xs">
+                    {currentSlide + 1} / {slides.length}
+                </div>
+            </div>
+
+            {/* Slide Area - The Constraint Container */}
+            <div className="flex-1 relative overflow-hidden p-4 md:p-6 flex flex-col justify-center items-center">
+                <div className="w-full h-full max-w-6xl max-h-[800px] bg-white shadow-2xl rounded-xl overflow-hidden relative border border-slate-200 flex flex-col">
+                    {/* Render current slide */}
+                    <CurrentSlideComponent key={currentSlide} />
+                </div>
+            </div>
+
+            {/* Navigation Controls (Floating) */}
+            <div className="absolute bottom-6 right-6 flex gap-2 z-30">
+                <button 
+                    onClick={prevSlide}
+                    disabled={currentSlide === 0}
+                    className={`p-2 rounded-full shadow-lg backdrop-blur-md transition-colors ${currentSlide === 0 ? 'bg-white/50 text-slate-300' : 'bg-white/90 text-slate-800 hover:bg-white'}`}
+                >
+                    <Icons.ChevronLeft />
+                </button>
+                <button 
+                    onClick={nextSlide}
+                    disabled={currentSlide === slides.length - 1}
+                    className={`p-2 rounded-full shadow-lg backdrop-blur-md transition-colors ${currentSlide === slides.length - 1 ? 'bg-white/50 text-slate-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+                >
+                    <Icons.ChevronRight />
+                </button>
+            </div>
+        </div>
+    );
+}
