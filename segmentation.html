@@ -168,11 +168,15 @@
                 <h2 className="text-3xl font-bold text-slate-800 mb-12 text-center animate-slide-up">The 5 Dimensions of Segmentation</h2>
                 
                 <div className="relative w-full max-w-4xl h-[500px]">
-                    {/* Central Core */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-blue-600 rounded-full flex items-center justify-center shadow-2xl z-10 animate-pop-in" style={{animationDelay: '0.1s'}}>
-                        <div className="text-center text-white">
-                            <h3 className="text-2xl font-bold">LexDana</h3>
-                            <p className="text-blue-100 text-sm">Customer Profile</p>
+                    
+                    {/* Central Core - WRAPPED FOR ALIGNMENT */}
+                    {/* The wrapper handles positioning (translate), the child handles animation (scale) */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                        <div className="w-48 h-48 bg-blue-600 rounded-full flex items-center justify-center shadow-2xl animate-pop-in" style={{animationDelay: '0.1s'}}>
+                            <div className="text-center text-white">
+                                <h3 className="text-2xl font-bold">LexDana</h3>
+                                <p className="text-blue-100 text-sm">Customer Profile</p>
+                            </div>
                         </div>
                     </div>
 
@@ -213,7 +217,7 @@
                     </div>
 
                     {/* Connectors (SVG Lines) */}
-                    <svg className="absolute inset-0 w-full h-full -z-10 pointer-events-none animate-fade-in" style={{animationDelay: '0.7s'}}>
+                    <svg className="absolute inset-0 w-full h-full z-0 pointer-events-none animate-fade-in" style={{animationDelay: '0.7s'}}>
                         <line x1="50%" y1="50%" x2="50%" y2="12%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
                         <line x1="50%" y1="50%" x2="85%" y2="38%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
                         <line x1="50%" y1="50%" x2="75%" y2="82%" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4"/>
@@ -492,7 +496,8 @@
             ];
 
             const nextSlide = () => setCurrentSlide(curr => Math.min(curr + 1, slides.length - 1));
-            const prevSlide = () => setCurrentSlide(curr => Math.max(curr - 0, 0));
+            // FIXED: Corrected the back button logic (curr - 1)
+            const prevSlide = () => setCurrentSlide(curr => Math.max(curr - 1, 0));
 
             // Keyboard navigation
             useEffect(() => {
@@ -596,4 +601,3 @@
     </script>
 </body>
 </html>
-```
