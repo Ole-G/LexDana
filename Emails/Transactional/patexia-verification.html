@@ -28,16 +28,12 @@
                 font-size: 18px !important;
             }
             .cta-button {
-                padding: 12px 24px !important;
+                /* FIX: Ensure button is full width on mobile */
+                display: block !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                padding: 15px 12px !important; /* Adjusted padding for full width look */
                 font-size: 15px !important;
-            }
-            /* Full width button on mobile */
-            .cta-full-width {
-                width: 100% !important;
-                text-align: center !important;
-            }
-            .cta-full-width a {
-                width: 100% !important;
             }
         }
     </style>
@@ -88,7 +84,7 @@
                         <td style="padding: 30px 40px;" class="mobile-padding">
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
-                                    <td align="center" class="cta-full-width">
+                                    <td align="center">
                                         <!-- Primary CTA Button -->
                                         <a href="{{verification_link}}" 
                                             class="cta-button"
