@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Subscription Alert: {{subscription_status}} - Customer {{contact.FIRSTNAME}} {{contact.LASTNAME}}</title>
+    <style>
+        /* Mobile Responsive Styles */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+                min-width: 100% !important;
+            }
+            .mobile-padding {
+                padding: 20px !important;
+            }
+            .mobile-padding-small {
+                padding: 15px !important;
+            }
+            .mobile-text {
+                font-size: 14px !important;
+            }
+            .mobile-heading {
+                font-size: 24px !important;
+            }
+            .data-table td {
+                display: block;
+                width: 100% !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+            .data-table .label {
+                font-weight: 600 !important;
+                display: inline-block;
+                width: 100px;
+                min-width: 100px;
+                margin-right: 10px;
+            }
+            .cta-link {
+                display: block !important;
+                width: 100% !important;
+                margin-bottom: 10px !important;
+                padding: 10px 0 !important;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f5f5f5;">
+    
+    <!-- Email Container -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f5;">
+        <tr>
+            <td style="padding: 40px 20px;">
+                
+                <!-- Main Content Table -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="email-container" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    
+                    <!-- Logo Section (Kept for branding consistency) -->
+                    <tr>
+                        <td style="padding: 40px 40px 20px 40px; text-align: center;" class="mobile-padding-small">
+                            <img src="https://ole-g.github.io/LexDana/assets/logo.png" alt="LexDana" style="max-width: 150px; height: auto; display: block; margin: 0 auto; border: 0;">
+                        </td>
+                    </tr>
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td style="padding: 20px 40px 10px 40px; background-color: #f0f4f8; border-bottom: 2px solid #0066cc;" class="mobile-padding">
+                            <h1 style="margin: 0; font-size: 24px; font-weight: 700; color: #1a1a1a; line-height: 1.3;" class="mobile-heading">
+                                Subscription Alert
+                            </h1>
+                        </td>
+                    </tr>
+
+                    <!-- Status Section -->
+                    <tr>
+                        <td style="padding: 30px 40px 20px 40px;" class="mobile-padding">
+                            <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #333333; font-weight: 700;">
+                                Status: <span style="color: #0066cc;">{{subscription_status}}</span>
+                                <span style="font-size: 14px; font-weight: 400; color: #666;">(Activated / Deactivated)</span>
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Divider -->
+                    <tr>
+                        <td style="padding: 0 40px;" class="mobile-padding">
+                            <div style="border-top: 1px solid #e5e5e5;"></div>
+                        </td>
+                    </tr>
+
+                    <!-- Customer Details Section -->
+                    <tr>
+                        <td style="padding: 30px 40px 10px 40px;" class="mobile-padding">
+                            <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 600; color: #1a1a1a;">
+                                Customer Details
+                            </h2>
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 15px; color: #333333;" class="data-table">
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">Name:</span>
+                                        {{contact.FIRSTNAME}} {{contact.LASTNAME}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">Email:</span>
+                                        <a href="mailto:{{contact.EMAIL}}" style="color: #0066cc; text-decoration: none;">{{contact.EMAIL}}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">User ID:</span>
+                                        <code style="background-color: #f0f0f0; padding: 2px 4px; border-radius: 3px;">{{user_id}}</code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">Plan:</span>
+                                        {{plan_type}} <span style="font-size: 13px; color: #999;">(Premium \$100/month / Enterprise / etc.)</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">Date/Time:</span>
+                                        {{timestamp}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Payment Information (if Activated) -->
+                    <tr>
+                        <td style="padding: 20px 40px 10px 40px;" class="mobile-padding">
+                            <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 600; color: #1a1a1a;">
+                                Payment Information
+                            </h2>
+                            <p style="margin: 0 0 10px 0; font-size: 13px; color: #999;">
+                                (Details shown only if Subscription Status is Activated)
+                            </p>
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 15px; color: #333333;" class="data-table">
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">Transaction ID:</span>
+                                        <code style="background-color: #f0f0f0; padding: 2px 4px; border-radius: 3px;">{{transaction_id}}</code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">Payment Method:</span>
+                                        {{payment_method}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">Amount:</span>
+                                        <strong style="color: #15a443;">\${{amount}}</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Cancellation Details (if Deactivated) -->
+                    <tr>
+                        <td style="padding: 20px 40px 10px 40px;" class="mobile-padding">
+                            <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 600; color: #1a1a1a;">
+                                Cancellation Details
+                            </h2>
+                            <p style="margin: 0 0 10px 0; font-size: 13px; color: #999;">
+                                (Details shown only if Subscription Status is Deactivated)
+                            </p>
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 15px; color: #333333;" class="data-table">
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">Cancellation Date:</span>
+                                        <strong style="color: #cc0000;">{{cancellation_date}}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">Subscription Period:</span>
+                                        {{subscription_start}} - {{subscription_end}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0;">
+                                        <span class="label" style="display: inline-block; width: 120px; font-weight: 600; color: #666;">Reason:</span>
+                                        {{cancellation_reason}} <span style="font-size: 13px; color: #999;">(if provided)</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Quick Actions -->
+                    <tr>
+                        <td style="padding: 30px 40px 40px 40px; text-align: center;" class="mobile-padding">
+                            <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 600; color: #1a1a1a;">
+                                Quick Actions
+                            </h2>
+                            <a href="{{profile_link}}" class="cta-link" style="display: inline-block; padding: 10px 15px; margin: 5px; background-color: #0066cc; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600; border-radius: 4px;">
+                                View Customer Profile
+                            </a>
+                            <a href="{{subscription_link}}" class="cta-link" style="display: inline-block; padding: 10px 15px; margin: 5px; background-color: #3399ff; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600; border-radius: 4px;">
+                                View Subscription Details
+                            </a>
+                            <a href="mailto:{{contact.EMAIL}}" class="cta-link" style="display: inline-block; padding: 10px 15px; margin: 5px; background-color: #f7931e; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600; border-radius: 4px;">
+                                Contact Customer
+                            </a>
+                        </td>
+                    </tr>
+                    
+                </table>
+                <!-- End Main Content Table -->
+                
+                <!-- Footer (Admin Note) -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="email-container" style="max-width: 600px; margin: 20px auto 0;">
+                    <tr>
+                        <td style="text-align: center; padding: 20px; font-size: 12px; line-height: 1.5; color: #999999;" class="mobile-padding-small">
+                            <p style="margin: 0;">
+                                This is an automated notification from LexDana Subscription Management.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>
